@@ -8,6 +8,6 @@ curl http://getkitten-darvin.rhcloud.com/kitten.png?width=200&height=200&rounded
 
 Will return you:
 
-![kitten](http://getkitten-darvin.rhcloud.com/kitten.png?width=200&height=200&rounded=true)
+![kitten](http://getkitten-darvin.heroku.com/kitten.png?width=200&height=200&rounded=true)
 
-See [getkitten-darvin.rhcloud.com](http://getkitten-darvin.rhcloud.com) for details.
+See [getkitten-darvin.rhcloud.com](http://getkitten-darvin.heroku.com) for details.
