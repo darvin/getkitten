@@ -50,7 +50,7 @@ API_KEY = "NzQxOQ"
 get '/kitten.png' do
   @width = params[:width].to_i
   @height = params[:height].to_i
-  @round = params[:round]? params[:round].to_bool : false
+  @round = params[:rounded]? params[:rounded].to_bool : false
   
   if (@width)
     if (@width>0&&@width<=250)
