@@ -19,16 +19,27 @@ target = ARGV.shift || "http://thecatapi.com/api/images/get"
 API_KEY = "NzQxOQ"
 
 
-get '/hi' do
-  @width = params[:width]
-  @height = params[:height]
+get '/kitten.png' do
+  @width = params[:width].to_i
+  @height = params[:height].to_i
+  
+  if (@width)
+    if (@width<=250)
+      size = "small"
+    elsif (250<@width&&@width<=500)
+      size = "med"
+    else
+      size = "full"
+    end
+  end
+  
   xml = clnt.get(target, 
   { 
     "api_key" => API_KEY, 
     "format" => "xml",
     "results_per_page" => 1,
     "type" => "png",
-    "size" => "small",
+    "size" => size,
   }
   ).content
   parsed_xml = XmlSimple.xml_in(xml)
@@ -41,7 +52,16 @@ get '/hi' do
   image.from_blob(urlimage.read)
   
 
+  if (@width&&@height)
+    resized_image = image.resize_to_fit(@width, @height)
+  elsif (@width)
+    resized_image = image.resize_to_fit(@width)
+  else
+    resized_image = image
+  end
 
-  send_file(image.path, :disposition => "inline")
+  content_type 'image/png'
+  resized_image.format = 'png'
+  resized_image.to_blob
   
 end
