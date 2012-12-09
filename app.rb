@@ -24,7 +24,7 @@ get '/kitten.png' do
   @height = params[:height].to_i
   
   if (@width)
-    if (@width<=250)
+    if (@width>0&&@width<=250)
       size = "small"
     elsif (250<@width&&@width<=500)
       size = "med"
@@ -52,9 +52,9 @@ get '/kitten.png' do
   image.from_blob(urlimage.read)
   
 
-  if (@width&&@height)
+  if (@width>0&&@height>0)
     resized_image = image.resize_to_fit(@width, @height)
-  elsif (@width)
+  elsif (@width>0)
     resized_image = image.resize_to_fit(@width)
   else
     resized_image = image
