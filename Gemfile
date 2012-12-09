@@ -3,5 +3,5 @@ gem 'rack', '1.1'
 gem 'sinatra'
 
 gem 'httpclient'
-gem 'xmlsimple'
+gem 'xml-simple'
 gem 'rmagick'
