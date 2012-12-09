@@ -1,9 +1,15 @@
 require 'sinatra'
 require 'net/http'
-require 'httpclient'
 require 'xmlsimple'
 require 'RMagick'
 require "open-uri"
+require 'net/http'
+require 'cgi'
+
+def http_get(domain,path,params)
+    return Net::HTTP.get(domain, "#{path}?".concat(params.collect { |k,v| "#{k}=#{CGI::escape(v.to_s)}" }.join('&'))) if not params.nil?
+    return Net::HTTP.get(domain, path)
+end
 
 
 get '/' do
@@ -12,10 +18,6 @@ get '/' do
 end
 
 
-proxy = ENV['HTTP_PROXY']
-clnt = HTTPClient.new(proxy)
-# clnt.set_cookie_store("cookie.dat")
-target = ARGV.shift || "http://thecatapi.com/api/images/get"
 API_KEY = "NzQxOQ"
 
 
@@ -33,7 +35,7 @@ get '/kitten.png' do
     end
   end
   
-  xml = clnt.get(target, 
+  xml = http_get("thecatapi.com", "/api/images/get", 
   { 
     "api_key" => API_KEY, 
     "format" => "xml",
@@ -41,7 +43,7 @@ get '/kitten.png' do
     "type" => "png",
     "size" => size,
   }
-  ).content
+  )
   parsed_xml = XmlSimple.xml_in(xml)
   image_url = parsed_xml["data"][0]["images"][0]["image"][0]["url"][0]
   puts image_url
