@@ -10,4 +10,4 @@ Will return you:
 
 ![kitten](http://getkitten.heroku.com/kitten.png?width=200&height=200&rounded=true)
 
-See [getkitten-darvin.rhcloud.com](http://getkitten.heroku.com) for details.
+See [getkitten.herokuapp.com](http://getkitten.heroku.com) for details.
